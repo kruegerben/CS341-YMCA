@@ -14,16 +14,27 @@ app.use(bodyParser.json());
 let db = new sqlite3.Database('./CS341-YMCA.db');
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/HomePage(Staff).html");
+    res.sendFile(__dirname + "/programs.html");
 });
 
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/login.html");
 });
 
-app.get('/:data', function(req, res) {
-    res.sendFile(__dirname + "/" + req.params.data);
-});
+app.get('/proover', function(req, res) {
+    var progq = "SELECT * FROM Program";
+    db.serialize(function() {
+        db.all(progq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.send(rows);
+            }
+        });
+    });
+  });
 
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
@@ -68,6 +79,10 @@ app.post('/auth', function(req, res) {
     } else {
         res.sendFile(__dirname + "/HomePage(General).html");
     }
+});
+
+app.get('/:data', function(req, res) {
+    res.sendFile(__dirname + "/" + req.params.data);
 });
 
 app.listen(port, function() {

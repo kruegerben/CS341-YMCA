@@ -1,0 +1,105 @@
+
+/*******************************************************************************
+   Soccer Database - Version 1.4
+   Script: Soccer_Database.sql
+   Description: Creates and populates the soccer database.
+   DB Server: Sqlite
+   Author: Benjamin Krueger
+********************************************************************************/
+
+/*******************************************************************************
+   Drop Foreign Keys Constraints
+********************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*******************************************************************************
+   Drop Tables
+********************************************************************************/
+DROP TABLE IF EXISTS [Member_Accounts];
+
+DROP TABLE IF EXISTS [Program];
+
+DROP TABLE IF EXISTS [Registration];
+
+/*******************************************************************************
+   Create Tables
+********************************************************************************/
+CREATE TABLE Member_Accounts (
+    Email    NVARCHAR (160) NOT NULL,
+    Password NVARCHAR (160) NOT NULL,
+    MemberID INTEGER        PRIMARY KEY AUTOINCREMENT
+                            NOT NULL,
+    Name     NVARCHAR (160) NOT NULL,
+    Member   INTEGER        NOT NULL,
+    Staff    INTEGER        NOT NULL
+);
+
+CREATE TABLE Program (
+    Name        NVARCHAR (160) NOT NULL,
+    ProgramID   INTEGER        PRIMARY KEY AUTOINCREMENT
+                               NOT NULL,
+    MemberCost  INTEGER        NOT NULL,
+    NonCost     INTEGER        NOT NULL,
+    Capacity    INTEGER        NOT NULL,
+    Date        NVARCHAR (160) NOT NULL,
+    Time        NVARCHAR (160) NOT NULL,
+    Location    NVARCHAR (160) NOT NULL,
+    Description NVARCHAR (400) 
+);
+
+CREATE TABLE Registration (
+    MemberID INTEGER PRIMARY KEY
+                     NOT NULL,
+    ProgamID INTEGER NOT NULL
+);
+
+
+/*******************************************************************************
+   Create Primary Key Unique Indexes
+********************************************************************************/
+
+/*******************************************************************************
+   Create Foreign Keys
+********************************************************************************/
+
+/*******************************************************************************
+   Populate Tables
+********************************************************************************/
+INSERT INTO [Member_Accounts] (
+    Email, Password, MemberID, Name, Member, Staff
+) VALUES (
+    "krueger.benjami@uwlax.edu", "password", 1000000, "Benjamin Krueger", 0, 1
+);
+
+INSERT INTO [Member_Accounts] (
+    Email, Password, Name, Member, Staff
+) VALUES (
+    "janedoe@gmail.com", "password", "Jane Doe", 0, 1
+);
+
+INSERT INTO [Program] (
+    Name, MemberCost, NonCost, Capacity, Date, Time, Location
+) VALUES (
+    "Shark", 48, 96, 8, "Oct. 25, 2020 - Dec. 13", "5:00pm - 5:40pm", "YMCA Onalaska pool"
+);
