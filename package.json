@@ -5,6 +5,7 @@
   "main": "webserv.js",
   "dependencies": {
     "express": "^4.17.1",
+    "livereload": "^0.9.1",
     "save": "^2.4.0",
     "sqlite3": "^5.0.0"
   },
