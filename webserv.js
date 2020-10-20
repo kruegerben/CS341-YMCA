@@ -12,6 +12,10 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
+app.get('/login', function(req, res) {
+    res.sendFile(__dirname + "/login.html");
+});
+
 app.get('/:data', function(req, res) {
     res.sendFile(__dirname + "/" + req.params.data);
 });
