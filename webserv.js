@@ -9,7 +9,11 @@ const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./CS341-YMCA.db');
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/login.html");
+    res.sendFile(__dirname + "/HomePage(General).html");
+});
+
+app.get('/:data', function(req, res) {
+    res.sendFile(__dirname + "/" + req.params.data);
 });
 
 app.post('/', function(req, res) {
