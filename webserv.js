@@ -26,9 +26,34 @@ app.get('/:data', function(req, res) {
 });
 
 app.post('/auth', function(req, res) {
-    var user_name = req.body.uname;
+    var name = req.body.uname;
     var password = req.body.psw;
-    console.log("User name = "+user_name+", password is "+password);
+    db.serialize(function() {
+        const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
+        db.all(searchq, function(err,rows) {
+            if (err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                var user = rows;
+                var col = [];
+                for (var i = 0; i < user.length; i++) {
+                  for (var key in user[i]) {
+                    if (col.indexOf(key) === -1) {
+                      col.push(key);
+                    }
+                  }
+                }
+                for (var i = 0; i < user.length; i++) {
+                    for (var j = 0; j < col.length; j++) {
+                      console.log(user[i][col[j]]);
+                    }
+                  }
+            }
+        })
+    })
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
