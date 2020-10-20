@@ -1,7 +1,6 @@
 var express = require('express');
 const livereload = require('livereload');
 const reload = livereload.createServer();
-const prompt = require('prompt');
 reload.watch(__dirname);
 var port = 8080;
 var app = express();
