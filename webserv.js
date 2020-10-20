@@ -14,6 +14,10 @@ app.use(bodyParser.json());
 let db = new sqlite3.Database('./CS341-YMCA.db');
 
 app.get('/', function(req, res) {
+    res.sendFile(__dirname + "/HomePage(General).html");
+});
+
+app.get('/programs', function(req, res) {
     res.sendFile(__dirname + "/programs.html");
 });
 
