@@ -1,0 +1,24 @@
+{
+  "name": "cs341-ymca",
+  "version": "1.0.0",
+  "description": "Web application for YMCA registration.",
+  "main": "webserv.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "save": "^2.4.0",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "\"database\"",
+    "\"sqlite\"",
+    "\"webpage\""
+  ],
+  "author": "\"Benjamin Krueger\"",
+  "license": "ISC"
+}
