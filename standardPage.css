@@ -1,0 +1,38 @@
+body{
+	
+}
+.menu{
+	background-color:cornflowerblue;
+	width: 100%;
+	font-size:x-large;
+	height:45px;
+	text-align:center;
+	
+}
+.menuitem{
+	padding: 0px 25px;
+	width:10%;
+	height:10px;
+	background-color:steelblue;
+	color:white;
+	text-decoration:none;
+	border-radius:15px;
+	line-height:20px;
+	position:relative;
+	top:10px;
+}
+.account{
+	text-decoration:none;
+	float: right;
+	background-color:mediumaquamarine;
+	padding: 0px 10px;
+	border-radius:10px
+	
+}
+.make{
+	float:left;
+	color:red;
+}
+.logo{
+	width:200px;
+}

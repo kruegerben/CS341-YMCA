@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="standardPage.css">
+		<title>Create a Program</title>
+	</head>
+	<body>
+		
+		<a href="./HomePage(Staff).html"><img class="logo" src="./ymca-logo.png" alt="YMCA logo"></a>
+		<div>
+			<a class="menuitem" href="./HomePage(General).html">General POV</a>
+			<a class="menuitem" href="./HomePage(Staff).html">Staff POV</a>
+		</div>
+		<nav>
+			<div class="menu">
+  				<a class="menuitem" href="./HomePage(Staff).html">Home</a>
+  				<a class="menuitem" href=>Programs</a>
+				<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a>
+			</div>
+		</nav>
+
+		<div class="make">
+		<form action="https://www.google.com/search" method="get">
+				<div>
+					<label class="program">Name of the program:
+						<input type="text" name="name-of-program">
+					</label>
+				</div>
+				<div>
+					<label class="program">Date of Program: <input type="date" name="start-date"> to <input type="date" name="end-date">
+					</label>
+				</div>
+				<div>
+					<label class="program">Time of Program: <input type="time" name="start-time"> to <input type="time" name="end-time">
+					</label>
+				</div>
+				<div>
+					<label class="program">Loacation:
+						<input type="text" name="location">
+					</label>
+				</div>
+				<div>
+					<label class="desc program">Description of Program:
+						<textarea name="descrpition" rows="1" cols="50">Enter description of the program</textarea>
+					</label>
+				</div>
+				<div>
+					<label class="program">Price of Program:
+						<input type="number" min="0" step="0.01">
+					</label>
+				</div>
+				<div>
+					<label class="program">Max Capacity:
+						<input type="number" min="0">
+					</label class="program">
+				</div>
+				<input type="submit" value="Create">
+			</form>
+		</div>
+	</body>
+</html>
