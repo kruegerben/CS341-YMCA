@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 let db = new sqlite3.Database('./CS341-YMCA.db');
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + "/HomePage(General).html");
+    res.sendFile(__dirname + "/HomePage(Staff).html");
 });
 
 app.get('/login', function(req, res) {
@@ -28,6 +28,9 @@ app.get('/:data', function(req, res) {
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
     var password = req.body.psw;
+    var Name = "";
+    var Member = false;
+    var Staff = false;
     db.serialize(function() {
         const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
         db.all(searchq, function(err,rows) {
@@ -48,13 +51,23 @@ app.post('/auth', function(req, res) {
                 }
                 for (var i = 0; i < user.length; i++) {
                     for (var j = 0; j < col.length; j++) {
-                      console.log(user[i][col[j]]);
+                      if (user[i][col[j]] == 1);
+                        if (j = 4) {
+                            Member = true;
+                        }
+                        if (j = 5) {
+                            Staff = true;
+                        }
                     }
                   }
             }
         })
     })
-    res.sendFile(__dirname + "/HomePage(General).html");
+    if (Staff) {
+        res.sendFile(__dirname + "/HomePage(Staff).html");
+    } else {
+        res.sendFile(__dirname + "/HomePage(General).html");
+    }
 });
 
 app.listen(port, function() {
