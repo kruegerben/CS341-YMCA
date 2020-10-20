@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <title> YMCA Programs </title>
+   <style>
+    th, td {
+      padding: 8px;
+      text-aglign: left;
+      border-bottom: 1px solid #DDDDDD;
+    }
+    
+   table {
+    margin-left:auto; 
+    margin-right:auto;
+    width: 100%;
+   }
+   </style>
+ </head>
+
+ <body>
+  <nav class="menu">
+
+  		<a class="menuitem" href="http://127.0.0.1:8080/">Home</a>
+		<a class="menuitem" href=>Programs</a>
+    <!--	<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a> --!>
+  </nav>
+  <table>
+    <tbody>
+    <tr>
+     <th>Program</th>
+     <th>Time Offered</th>
+    </tr>
+
+    <%
+    if(userData.length!=0){
+    var i=1;
+    userData.forEach(function(data){
+    %>
+        <tr>
+            <td><%=data.ProgramName %></td>
+            <td><%=data.ProgramTime %></td>
+        </tr>
+        <%  i++; }) %>
+        <% } else{ %>
+            <tr>
+                <td colspan="2">No Programs</td>
+            </tr>
+        <% } %>
+    </tbody>
+  </table>
+ </body>
+
+</html>
