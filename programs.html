@@ -30,22 +30,6 @@
      <th>Program</th>
      <th>Time Offered</th>
     </tr>
-
-    <%
-    if(userData.length!=0){
-    var i=1;
-    userData.forEach(function(data){
-    %>
-        <tr>
-            <td><%=data.ProgramName %></td>
-            <td><%=data.ProgramTime %></td>
-        </tr>
-        <%  i++; }) %>
-        <% } else{ %>
-            <tr>
-                <td colspan="2">No Programs</td>
-            </tr>
-        <% } %>
     </tbody>
   </table>
  </body>
