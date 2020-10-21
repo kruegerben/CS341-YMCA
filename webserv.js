@@ -10,6 +10,7 @@ const { Console } = require('console');
 const router = express.Router();
 var Member = new Boolean(false);
 var Staff = new Boolean(false);
+var GenView = new Boolean(false);
 var vProgram = "";
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,7 +24,11 @@ app.get('/', function(req, res) {
 
 app.get('/home', function(req, res) {
     if (Staff == Boolean(true)) {
-        res.sendFile(__dirname + "/HomePage(Staff).html");
+        if (GenView == Boolean(true)) {
+            res.sendFile(__dirname + "/HomePage(GenView).html");
+        } else {
+            res.sendFile(__dirname + "/HomePage(Staff).html");
+        }
     } else if (Member == Boolean(true)) {
         res.sendFile(__dirname + "/HomePage(Logged in).html");
     } else {
@@ -90,6 +95,7 @@ app.post('/home', function(req, res) {
 app.get('/_home', function(req, res) {
     Member = new Boolean(false);
     Staff = new Boolean(false);
+    GenView = new Boolean(false);
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
@@ -197,6 +203,9 @@ app.get('/program_view/:pname', function(req, res) {
 });
 
 app.get('/:data', function(req, res) {
+    if (req.params.data == "HomePage(GenView).html") {
+        GenView = new Boolean(true);
+    }
     res.sendFile(__dirname + "/" + req.params.data);
 });
 
