@@ -6,6 +6,7 @@ var port = 8080;
 var app = express();
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require("body-parser");
+const { Console } = require('console');
 const router = express.Router();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,8 +45,8 @@ app.post('/auth', function(req, res) {
     var name = req.body.uname;
     var password = req.body.psw;
     var Name = "";
-    var Member = false;
-    var Staff = false;
+    var Member = new Boolean(false);
+    var Staff = new Boolean(false);
     db.serialize(function() {
         const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
         db.all(searchq, function(err,rows) {
@@ -66,23 +67,32 @@ app.post('/auth', function(req, res) {
                 }
                 for (var i = 0; i < user.length; i++) {
                     for (var j = 0; j < col.length; j++) {
-                      if (user[i][col[j]] == 1);
-                        if (j = 4) {
-                            Member = true;
+                        if (user[i][col[j]] == 1) {
+                            if (j == 4) {
+                                console.log("Member Sign in");
+                                Member = new Boolean(true);
+                            }
+                            if (j == 5) {
+                                console.log("Staff sign in");
+                                Staff = new Boolean(true);
+                            }
                         }
-                        if (j = 5) {
-                            Staff = true;
+                        if (j == col.length - 1) {
+                            if (Staff == Boolean(true)) {
+                                console.log(Staff);
+                                res.sendFile(__dirname + "/HomePage(Staff).html");
+                            } else if (Member == Boolean(true)) {
+                                console.log(Member);
+                                res.sendFile(__dirname + "/HomePage(Logged in).html");
+                            } else {
+                                res.sendFile(__dirname + "/HomePage(General).html")
+                            }
                         }
                     }
                   }
             }
         })
     })
-    if (Staff) {
-        res.sendFile(__dirname + "/HomePage(Staff).html");
-    } else {
-        res.sendFile(__dirname + "/HomePage(General).html");
-    }
 });
 
 app.get('/:data', function(req, res) {

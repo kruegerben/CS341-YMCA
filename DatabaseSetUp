@@ -95,7 +95,7 @@ INSERT INTO [Member_Accounts] (
 INSERT INTO [Member_Accounts] (
     Email, Password, Name, Member, Staff
 ) VALUES (
-    "janedoe@gmail.com", "password", "Jane Doe", 0, 1
+    "janedoe@gmail.com", "password", "Jane Doe", 1, 0
 );
 
 INSERT INTO [Program] (
