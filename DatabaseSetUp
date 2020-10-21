@@ -97,9 +97,3 @@ INSERT INTO [Member_Accounts] (
 ) VALUES (
     "janedoe@gmail.com", "password", "Jane Doe", 1, 0
 );
-
-INSERT INTO [Program] (
-    Name, MemberCost, NonCost, Capacity, Date, Time, Location
-) VALUES (
-    "Shark", 48, 96, 8, "Oct. 25, 2020 - Dec. 13", "5:00pm - 5:40pm", "YMCA Onalaska pool"
-);

@@ -14,45 +14,45 @@
 		<nav>
 			<div class="menu">
   				<a class="menuitem" href="./HomePage(Staff).html">Home</a>
-  				<a class="menuitem" href=>Programs</a>
+  				<a class="menuitem" href=http://127.0.0.1:8080/programs>Programs</a>
 				<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a>
 			</div>
 		</nav>
 
 		<div class="make">
-		<form action="https://www.google.com/search" method="get">
+		<form action="/home" method="post">
 				<div>
 					<label class="program">Name of the program:
-						<input type="text" name="name-of-program">
+						<input type="text" name="name">
 					</label>
 				</div>
 				<div>
-					<label class="program">Date of Program: <input type="date" name="start-date"> to <input type="date" name="end-date">
+					<label class="program">Date of Program: <input type="date" name="startd"> to <input type="date" name="endd">
 					</label>
 				</div>
 				<div>
-					<label class="program">Time of Program: <input type="time" name="start-time"> to <input type="time" name="end-time">
+					<label class="program">Time of Program: <input type="time" name="startt"> to <input type="time" name="endt">
 					</label>
 				</div>
 				<div>
-					<label class="program">Loacation:
+					<label class="program">Location:
 						<input type="text" name="location">
 					</label>
 				</div>
 				<div>
 					<label class="desc program">Description of Program:
-						<textarea name="descrpition" rows="1" cols="50">Enter description of the program</textarea>
+						<textarea name="description" rows="1" cols="50">Enter description of the program</textarea>
 					</label>
 				</div>
 				<div>
 					<label class="program">Price of Program:
-						Nonmembers: <input type="number" min="0" step="0.01">
-						Members: <input type="number" min="0" step="0.01">
+						Nonmembers: <input name="nonmem" type="number" min="0" step="0.01">
+						Members: <input name="mem" type="number" min="0" step="0.01">
 					</label>
 				</div>
 				<div>
 					<label class="program">Max Capacity:
-						<input type="number" min="0">
+						<input name="pCap" type="number" min="0">
 					</label class="program">
 				</div>
 				<input type="submit" value="Create">

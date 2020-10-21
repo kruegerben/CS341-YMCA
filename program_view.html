@@ -7,7 +7,7 @@
    <style>
       th, td {
         padding: 8px;
-        text-aglign: left;
+        text-align: left;
         border-bottom: 1px solid #DDDDDD;
         font-family: Arial;
       }
@@ -18,35 +18,39 @@
       width: 100%;
      }
    </style>
-  
+       <script type='text/javascript' src='program_view.js'></script>
+       <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
  </head>
 
  <body>
   <nav class="menu">
 
-  		<a class="menuitem" href="http://127.0.0.1:8080/">Home</a>
-		<a class="menuitem" href=>Programs</a>
+  		<a class="menuitem" href="http://127.0.0.1:8080/home">Home</a>
+		<a class="menuitem" href='http://127.0.0.1:8080/programs'>Programs</a>
     <!--	<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a> --!>
   </nav>
   
   <table>
    <tr>
-     <td>Program</td>
+     <td id = pName>Program: </td>
    </tr>
    <tr>
-     <td>Date</td>
+     <td id = pDate>Date: </td>
    </tr>
    <tr>
-     <td>Time </td>
+     <td id = pTime>Time: </td>
    </tr>
    <tr>
-     <td>Price  </td>
+     <td id = pPric>Price(Member/Non-Member): </td>
    </tr>
    <tr>
-     <td>Description  </td>
+     <td id = pLoca>Location: </td>
    </tr>
    <tr>
-     <td>Available Seats</td>
+     <td id = pDesc>Description: </td>
+   </tr>
+   <tr>
+     <td id = pAvai>Available Seats: </td>
    </tr>
   </table>
 
