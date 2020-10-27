@@ -179,12 +179,13 @@ app.post('/auth', function(req, res) {
                             } else if (Member == Boolean(true)) {
                                 res.sendFile(__dirname + "/HomePage(Logged in).html");
                             } else {
-                                res.sendFile(__dirname + "/HomePage(General).html")
+                                res.sendFile(__dirname + "/HomePage(General).html");
                             }
                         }
                     }
                   }
             }
+            res.sendFile(__dirname + "/login.html");
         })
     })
 });
