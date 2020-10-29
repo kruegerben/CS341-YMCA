@@ -112,6 +112,7 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/proover', function(req, res) {
+    console.log("Programs requested");
     var progq = "SELECT * FROM Program";
     db.serialize(function() {
         db.all(progq, function(err,rows){
@@ -184,6 +185,7 @@ app.post('/auth', function(req, res) {
                         }
                     }
                   }
+                  res.sendFile(__dirname + "/login.html");
             }
         })
     })
