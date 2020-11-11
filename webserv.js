@@ -92,6 +92,10 @@ app.post('/home', function(req, res) {
     });
 });
 
+app.get('/register', function(req, res) {
+    res.sendFile(__dirname + "/HomePage(General).html");
+});
+
 app.get('/_home', function(req, res) {
     Member = new Boolean(false);
     Staff = new Boolean(false);
