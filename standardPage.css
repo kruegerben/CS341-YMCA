@@ -39,6 +39,7 @@
 	background-color:skyblue;
 	cursor: pointer;
 	text-align: center;
+	float:right;
 }
 
 .button:active{
