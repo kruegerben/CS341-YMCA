@@ -7,11 +7,13 @@ var app = express();
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require("body-parser");
 const { Console } = require('console');
+const crypto = require('crypto');
 const router = express.Router();
 var Member = new Boolean(false);
 var Staff = new Boolean(false);
 var GenView = new Boolean(false);
 var vProgram = "";
+hash = crypto.getHashes();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -180,7 +182,7 @@ app.get('/acc', function(req, res) {
 
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
-    var password = req.body.psw;
+    var password = crypto.createHash('sha512').update(req.body.psw).digest('hex');
     var Name = "";
     db.serialize(function() {
         const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
@@ -250,3 +252,14 @@ app.get('/:data', function(req, res) {
 app.listen(port, function() {
     console.log('Listening on port %d', port);
 })
+
+function toHex(input) {
+    var hash = "",
+      alphabet = "0123456789abcdef",
+      alphabetLength = alphabet.length;
+    do {
+      hash = alphabet[input % alphabetLength] + hash;
+      input = parseInt(input / alphabetLength, 10);
+    } while (input);
+    return hash;
+  }

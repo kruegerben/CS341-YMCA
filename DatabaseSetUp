@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS [Registration];
 ********************************************************************************/
 CREATE TABLE Member_Accounts (
     Email    NVARCHAR (160) NOT NULL,
-    Password NVARCHAR (160) NOT NULL,
+    Password NVARCHAR (400) NOT NULL,
     MemberID INTEGER        PRIMARY KEY AUTOINCREMENT
                             NOT NULL,
     Name     NVARCHAR (160) NOT NULL,
@@ -97,11 +97,11 @@ CREATE TABLE Registration (
 INSERT INTO [Member_Accounts] (
     Email, Password, MemberID, Name, Member, Staff
 ) VALUES (
-    "krueger.benjami@uwlax.edu", "password", 1000000, "Benjamin Krueger", 0, 1
+    "krueger.benjami@uwlax.edu", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 1000000, "Benjamin Krueger", 0, 1
 );
 
 INSERT INTO [Member_Accounts] (
     Email, Password, Name, Member, Staff
 ) VALUES (
-    "janedoe@gmail.com", "password", "Jane Doe", 1, 0
+    "janedoe@gmail.com", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", "Jane Doe", 1, 0
 );
