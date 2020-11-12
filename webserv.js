@@ -168,12 +168,15 @@ app.get('/prodet', function(req, res) {
                 console.log(err);
             }
             else{
-                console.log(rows);
                 res.send(rows)
             }
         });
     });
 });
+
+app.get('/acc', function(req, res) {
+    res.send({"Member": Member + "", "Staff": Staff + ""});
+})
 
 app.post('/auth', function(req, res) {
     var name = req.body.uname;

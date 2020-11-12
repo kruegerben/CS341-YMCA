@@ -45,4 +45,5 @@ function window_onload() {
             Available.innerHTML = ATemp + " " + pAvai;
         }
     })
+
 }
