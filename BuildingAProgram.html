@@ -32,13 +32,13 @@
 				</div>
 				<div>
 					Day(s) of the Week:
-					<label><input type="checkbox">Sunday</label>
-					<label><input type="checkbox">Monday</label>
-					<label><input type="checkbox">Tuesday</label>
-					<label><input type="checkbox">Wednesday</label>
-					<label><input type="checkbox">Thursday</label>
-					<label><input type="checkbox">Friday</label>
-					<label><input type="checkbox">Saturday</label>
+					<label><input type="checkbox" name="Sunday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Sunday</label>
+					<label><input type="checkbox" name="Monday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Monday</label>
+					<label><input type="checkbox" name="Tuesday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Tuesday</label>
+					<label><input type="checkbox" name="Wednesday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Wednesday</label>
+					<label><input type="checkbox" name="Thursday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Thursday</label>
+					<label><input type="checkbox" name="Friday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Friday</label>
+					<label><input type="checkbox" name="Saturday" value="0" onchange="if(this.checked) this.value='1'; else this.value='0';">Saturday</label>
 				</div>
 				<div>
 					<label class="program">Time of Program: <input type="time" name="startt"> to <input type="time" name="endt">

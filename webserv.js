@@ -37,6 +37,34 @@ app.get('/home', function(req, res) {
 });
 
 app.post('/home', function(req, res) {
+    var Sun = req.body.Sunday;
+    if (Sun != '1') {
+        Sun = '0';
+    }
+    var Mon = req.body.Monday;
+    if (Mon != '1') {
+        Mon = '0';
+    }
+    var Tue = req.body.Tuesday;
+    if (Tue != '1') {
+        Tue = '0';
+    }
+    var Wed = req.body.Wednesday;
+    if (Wed != '1') {
+        Wed = '0';
+    }
+    var Thur = req.body.Thursday;
+    if (Thur != '1') {
+        Thur = '0';
+    }
+    var Fri = req.body.Friday;
+    if (Fri != '1') {
+        Fri = '0';
+    }
+    var Sat = req.body.Saturday;
+    if (Sat != '1') {
+        Sat = '0';
+    }
     var sDate = req.body.startd;
     var sDateStr = new Date(sDate.replace(/-/g, '\/'));
     sDateStr = sDateStr.toDateString().replace(/^\S+\s/,'');
@@ -78,7 +106,7 @@ app.post('/home', function(req, res) {
     var nPrice = req.body.nonmem;
     var mPrice = req.body.mem;
     
-    var insertq = 'INSERT INTO [Program] ( Name, MemberCost, NonCost, Capacity, Date, Time, Location, Description) VALUES ( "' + progName + '", ' + mPrice + ', '+ nPrice +', '+ progCap +', "'+ dateRange +'", "'+ timeRange +'", "'+ progLoc +'", "'+ progDesc +'");';
+    var insertq = 'INSERT INTO [Program] ( Name, MemberCost, NonCost, Capacity, Date, Time, Location, Sun, Mon, Tue, Wed, Thur, Fri, Sat, Description) VALUES ( "' + progName + '", ' + mPrice + ', '+ nPrice +', '+ progCap +', "'+ dateRange +'", "'+ timeRange +'", "'+ progLoc +'", "'+ Sun +'", "'+ Mon +'", "'+ Tue +'", "'+ Wed +'", "'+ Thur +'", "'+ Fri +'", "'+ Sat +'", "'+ progDesc +'");';
     db.serialize(function() {
         db.all(insertq, function(err,rows){
             if(err)
@@ -93,7 +121,7 @@ app.post('/home', function(req, res) {
 });
 
 app.get('/register', function(req, res) {
-    res.sendFile(__dirname + "/HomePage(General).html");
+    res.sendFile(__dirname + "/registration_page.html");
 });
 
 app.get('/_home', function(req, res) {
@@ -140,6 +168,7 @@ app.get('/prodet', function(req, res) {
                 console.log(err);
             }
             else{
+                console.log(rows);
                 res.send(rows)
             }
         });

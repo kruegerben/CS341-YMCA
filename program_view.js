@@ -20,7 +20,7 @@ function window_onload() {
             var pTime = prog[0][col[6]];
             var pPric = "$" + prog[0][col[2]] + "/$" + prog[0][col[3]];
             var pLoca = prog[0][col[7]];
-            var pDesc = prog[0][col[8]];
+            var pDesc = prog[0][col[15]];
             var pAvai = prog[0][col[4]];
             var Name = document.getElementById("pName");
             var NTemp = Name.innerHTML;

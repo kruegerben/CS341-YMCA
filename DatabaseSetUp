@@ -65,13 +65,21 @@ CREATE TABLE Program (
     Date        NVARCHAR (160) NOT NULL,
     Time        NVARCHAR (160) NOT NULL,
     Location    NVARCHAR (160) NOT NULL,
+    Sun         INTEGER        NOT NULL,
+    Mon         INTEGER        NOT NULL,
+    Tue         INTEGER        NOT NULL,
+    Wed         INTEGER        NOT NULL,
+    Thur        INTEGER        NOT NULL,
+    Fri         INTEGER        NOT NULL,
+    Sat         INTEGER        NOT NULL,
     Description NVARCHAR (400) 
 );
 
 CREATE TABLE Registration (
-    MemberID INTEGER PRIMARY KEY
-                     NOT NULL,
-    ProgamID INTEGER NOT NULL
+    Registration_Number INTEGER PRIMARY KEY
+                        AUTOINCREMENT NOT NULL,
+    MemberID INTEGER    NOT NULL,
+    ProgamID INTEGER    NOT NULL
 );
 
 
