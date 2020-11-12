@@ -4,22 +4,16 @@ body{
 .menu{
 	background-color:cornflowerblue;
 	width: 100%;
-	font-size:x-large;
-	height:45px;
-	text-align:center;
+	overflow: hidden;
 	
 }
 .menuitem{
-	padding: 0px 25px;
-	width:10%;
-	height:10px;
-	background-color:steelblue;
+	float:left;
 	color:white;
 	text-decoration:none;
-	border-radius:15px;
-	line-height:20px;
-	position:relative;
-	top:10px;
+	text-align: center;
+	padding: 0.65em 1em;
+	font-size: 1.15em
 }
 .account{
 	text-decoration:none;
