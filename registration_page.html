@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="standardPage.css">
+        <title>Register for an account</title>
+        <style>
+            .first-name{
+                margin-right:10px;
+            }
+
+            div > label,div>input,div>select{
+                margin-bottom:20px;
+            }
+        </style>
+	</head>
+	<body>
+		
+		<a href="./HomePage(Staff).html"><img class="logo" src="https://cdn.atlantajewishconnector.com/uploads/2020/03/YMCA-Logo.png" alt="YMCA logo"></a>
+
+		<div class="register">
+            <form action="/home" method="post">
+                   <div>
+                       <label>Name: </label><input type="text" class=first-name placeholder="First name" required><input type="text" placeholder="Last name" required>
+                   </div>
+                   
+                   <div>
+                       <label>Email: </label><input type="email" required>
+                   </div>
+                   
+                    <div>
+                        <label>Passowrd: </label><input type="password" required>
+                    </div>
+
+                    <div>
+                        <label>Confirm Passowrd: </label><input type="password" required>
+                    </div>
+
+                    <div>
+                        <label>Status:</label>
+                        <select name="status" required>
+                            <option value="" selected></option>
+                            <option value="">Member</option>
+                            <option value="">Non-Member</option>
+                        </select>
+                        <!-- <label><input type="radio" name="status">Member</label>
+                        <label><input type="radio" name="status">Non-member</label> -->
+                    </div>
+
+                    <input type="submit" value="Register">
+			</form>
+		</div>
+	</body>
+</html>
