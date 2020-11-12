@@ -1,12 +1,10 @@
-body{
-	
-}
 .menu{
 	background-color:cornflowerblue;
 	width: 100%;
 	overflow: hidden;
 	
 }
+
 .menuitem{
 	float:left;
 	color:white;
@@ -15,6 +13,7 @@ body{
 	padding: 0.65em 1em;
 	font-size: 1.15em
 }
+
 .account{
 	text-decoration:none;
 	float: right;
@@ -23,10 +22,25 @@ body{
 	border-radius:10px
 	
 }
+
 .make{
 	float:left;
 	color:red;
 }
+
 .logo{
 	width:200px;
+}
+
+.button{
+	width:140px;
+	display:block;
+	padding:5px 10px;
+	background-color:skyblue;
+	cursor: pointer;
+	text-align: center;
+}
+
+.button:active{
+	background-color:blue;
 }
