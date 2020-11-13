@@ -14,7 +14,7 @@ var Staff = new Boolean(false);
 var GenView = new Boolean(false);
 var vProgram = "";
 hash = crypto.getHashes();
-
+var auth = new Array();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -25,6 +25,20 @@ app.get('/', function(req, res) {
 });
 
 app.get('/home', function(req, res) {
+    if (Staff == Boolean(true)) {
+        if (GenView == Boolean(true)) {
+            res.sendFile(__dirname + "/HomePage(GenView).html");
+        } else {
+            res.sendFile(__dirname + "/HomePage(Staff).html");
+        }
+    } else if (Member == Boolean(true)) {
+        res.sendFile(__dirname + "/HomePage(Logged in).html");
+    } else {
+        res.sendFile(__dirname + "/HomePage(General).html")
+    }
+});
+
+app.post('/pReg', function(req, res) {
     if (Staff == Boolean(true)) {
         if (GenView == Boolean(true)) {
             res.sendFile(__dirname + "/HomePage(GenView).html");
@@ -127,6 +141,11 @@ app.get('/register', function(req, res) {
 });
 
 app.get('/_home', function(req, res) {
+    for (let i = 0; i < auth.length; i++) {
+        if (auth[i][0] == req.connection.remoteAddress) {
+            auth.splice(i, 1);
+        }
+    }
     Member = new Boolean(false);
     Staff = new Boolean(false);
     GenView = new Boolean(false);
@@ -146,7 +165,6 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/proover', function(req, res) {
-    console.log("Programs requested");
     var progq = "SELECT * FROM Program";
     db.serialize(function() {
         db.all(progq, function(err,rows){
@@ -202,6 +220,8 @@ app.post('/auth', function(req, res) {
                     }
                   }
                 }
+                useri = [req.connection.remoteAddress, user[0][col[2]]];
+                auth.push(useri);
                 for (var i = 0; i < user.length; i++) {
                     for (var j = 0; j < col.length; j++) {
                         if (user[i][col[j]] == 1) {
@@ -252,14 +272,3 @@ app.get('/:data', function(req, res) {
 app.listen(port, function() {
     console.log('Listening on port %d', port);
 })
-
-function toHex(input) {
-    var hash = "",
-      alphabet = "0123456789abcdef",
-      alphabetLength = alphabet.length;
-    do {
-      hash = alphabet[input % alphabetLength] + hash;
-      input = parseInt(input / alphabetLength, 10);
-    } while (input);
-    return hash;
-  }
