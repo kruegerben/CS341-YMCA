@@ -48,9 +48,9 @@ DROP TABLE IF EXISTS [Registration];
 CREATE TABLE Member_Accounts (
     Email    NVARCHAR (160) NOT NULL,
     Password NVARCHAR (400) NOT NULL,
-    MemberID INTEGER        PRIMARY KEY AUTOINCREMENT
+    AccountID INTEGER        PRIMARY KEY AUTOINCREMENT
                             NOT NULL,
-    Name     NVARCHAR (160) NOT NULL,
+    AName     NVARCHAR (160) NOT NULL,
     Member   INTEGER        NOT NULL,
     Staff    INTEGER        NOT NULL
 );
@@ -79,7 +79,7 @@ CREATE TABLE Registration (
     Registration_Number INTEGER PRIMARY KEY
                         AUTOINCREMENT NOT NULL,
     MemberID INTEGER    NOT NULL,
-    ProgamID INTEGER    NOT NULL
+    ProgramID INTEGER    NOT NULL
 );
 
 
@@ -95,13 +95,13 @@ CREATE TABLE Registration (
    Populate Tables
 ********************************************************************************/
 INSERT INTO [Member_Accounts] (
-    Email, Password, MemberID, Name, Member, Staff
+    Email, Password, AccountID, AName, Member, Staff
 ) VALUES (
-    "krueger.benjami@uwlax.edu", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 1000000, "Benjamin Krueger", 0, 1
+    "krueger.benjami@uwlax.edu", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", 1000000, "Benjamin Krueger", 0, 1
 );
 
 INSERT INTO [Member_Accounts] (
-    Email, Password, Name, Member, Staff
+    Email, Password, AName, Member, Staff
 ) VALUES (
-    "janedoe@gmail.com", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", "Jane Doe", 1, 0
+    "janedoe@gmail.com", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "Jane Doe", 1, 0
 );

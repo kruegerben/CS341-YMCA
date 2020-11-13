@@ -38,17 +38,68 @@ app.get('/home', function(req, res) {
     }
 });
 
+app.get("/regover", function(req, res){
+    console.log("Registration request");
+    var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID;";
+    db.serialize(function() {
+        db.all(regq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                console.log(rows)
+                res.send(rows);
+            }
+        });
+    });
+});
+
+app.get("/pReg", function(req, res) {
+    res.sendFile(__dirname + "/registration_view.html");
+});
+
 app.post('/pReg', function(req, res) {
-    if (Staff == Boolean(true)) {
-        if (GenView == Boolean(true)) {
-            res.sendFile(__dirname + "/HomePage(GenView).html");
-        } else {
-            res.sendFile(__dirname + "/HomePage(Staff).html");
+    var userid = 0;
+    if (auth.length > 0) {
+        console.log(auth[0][1]);
+        for (let i = 0; i < auth.length; i++) {
+            if (auth[i][0] == req.connection.remoteAddress) {
+                userid = auth[i][1];
+                console.log(auth[i][1]);
+            }
         }
-    } else if (Member == Boolean(true)) {
-        res.sendFile(__dirname + "/HomePage(Logged in).html");
-    } else {
-        res.sendFile(__dirname + "/HomePage(General).html")
+        var reg = "INSERT INTO [Registration] (MemberID, ProgramID) VALUES (" + userid + ", " + req.body.pId + ");";
+        db.serialize(function() {
+            db.all(reg, function(err,rows){
+                if(err)
+                {
+                    console.log(err);
+                }
+            });
+        });
+        var up = "UPDATE [Program] SET Capacity = Capacity - 1 WHERE ProgramID = " + req.body.pId + ";"
+            db.serialize(function() {
+            db.all(up, function(err,rows){
+                if(err)
+                {
+                    console.log(err);
+                }
+                else{
+                    if (Staff == Boolean(true)) {
+                        if (GenView == Boolean(true)) {
+                            res.sendFile(__dirname + "/HomePage(GenView).html");
+                        } else {
+                            res.sendFile(__dirname + "/HomePage(Staff).html");
+                        }
+                    } else if (Member == Boolean(true)) {
+                        res.sendFile(__dirname + "/HomePage(Logged in).html");
+                    } else {
+                        res.sendFile(__dirname + "/HomePage(General).html")
+                    }
+                }
+            });
+        });
     }
 });
 
@@ -200,8 +251,7 @@ app.get('/acc', function(req, res) {
 
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
-    var password = crypto.createHash('sha512').update(req.body.psw).digest('hex');
-    var Name = "";
+    var password = crypto.createHash('sha256').update(req.body.psw).digest('hex');
     db.serialize(function() {
         const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
         db.all(searchq, function(err,rows) {
@@ -220,8 +270,6 @@ app.post('/auth', function(req, res) {
                     }
                   }
                 }
-                useri = [req.connection.remoteAddress, user[0][col[2]]];
-                auth.push(useri);
                 for (var i = 0; i < user.length; i++) {
                     for (var j = 0; j < col.length; j++) {
                         if (user[i][col[j]] == 1) {
@@ -232,7 +280,10 @@ app.post('/auth', function(req, res) {
                                 Staff = new Boolean(true);
                             }
                         }
-                        if (j == col.length - 1) {
+                        if (j == col.length - 1) { 
+                            console.log(user[0][col[2]])   
+                            useri = [req.connection.remoteAddress, user[0][col[2]]];
+                            auth.push(useri);
                             if (Staff == Boolean(true)) {
                                 res.sendFile(__dirname + "/HomePage(Staff).html");
                             } else if (Member == Boolean(true)) {
