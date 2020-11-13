@@ -34,7 +34,70 @@ app.get('/home', function(req, res) {
     } else if (Member == Boolean(true)) {
         res.sendFile(__dirname + "/HomePage(Logged in).html");
     } else {
-        res.sendFile(__dirname + "/HomePage(General).html")
+        res.sendFile(__dirname + "/HomePage(GenView).html")
+    }
+});
+
+app.get("/aauth", function(req, res){
+    userid = 0;
+        for (let i = 0; i < auth.length; i++) {
+            if (auth[i][0] == req.connection.remoteAddress) {
+                userid = auth[i][1];
+            }
+        }
+        if (userid != 0) {
+            var accountq = "SELECT * FROM Member_Accounts WHERE AccountID = '" + userid + "';";
+            db.serialize(function() {
+                db.all(accountq, function(err,rows){
+                    if(err)
+                    {
+                        console.log(err);
+                    }
+                    else{
+                        res.send(rows);
+                    }
+                });
+            });  
+        }
+        else {
+            res.send();
+        }
+});
+
+app.get("/regcheck", function(req, res){
+    var userid = 0;
+    if (auth.length > 0) {
+        for (let i = 0; i < auth.length; i++) {
+            if (auth[i][0] == req.connection.remoteAddress) {
+                userid = auth[i][1];
+            }
+        }
+        console.log("Registration check");
+        var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Member_Accounts.AccountID = " + userid + ";";
+        db.serialize(function() {
+            db.all(regq, function(err,rows){
+                if(err)
+                {
+                    console.log(err);
+                }
+                else{
+                    res.send(rows);
+                }
+            });
+        });
+    } else {
+        var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Member_Accounts.AccountID = " + userid + ";";
+        db.serialize(function() {
+            db.all(regq, function(err,rows){
+                if(err)
+                {
+                    console.log(err);
+                }
+                else{
+                    res.send(rows);
+                }
+            });
+        });
     }
 });
 
@@ -48,7 +111,6 @@ app.get("/regover", function(req, res){
                 console.log(err);
             }
             else{
-                console.log(rows)
                 res.send(rows);
             }
         });
@@ -59,27 +121,26 @@ app.get("/pReg", function(req, res) {
     res.sendFile(__dirname + "/registration_view.html");
 });
 
+
 app.post('/pReg', function(req, res) {
+    commit = Boolean(true);
     var userid = 0;
     if (auth.length > 0) {
-        console.log(auth[0][1]);
         for (let i = 0; i < auth.length; i++) {
             if (auth[i][0] == req.connection.remoteAddress) {
                 userid = auth[i][1];
-                console.log(auth[i][1]);
             }
         }
         var reg = "INSERT INTO [Registration] (MemberID, ProgramID) VALUES (" + userid + ", " + req.body.pId + ");";
         db.serialize(function() {
             db.all(reg, function(err,rows){
-                if(err)
-                {
+                if(err)                    {
                     console.log(err);
                 }
             });
         });
         var up = "UPDATE [Program] SET Capacity = Capacity - 1 WHERE ProgramID = " + req.body.pId + ";"
-            db.serialize(function() {
+        db.serialize(function() {
             db.all(up, function(err,rows){
                 if(err)
                 {
@@ -231,6 +292,11 @@ app.get('/proover', function(req, res) {
 });
 
 app.get('/prodet', function(req, res) {
+    for (let i = 0; i < auth.length; i++) {
+        if (auth[i][0] == req.connection.remoteAddress) {
+            userid = auth[i][1];
+        }
+    }
     var progq = "SELECT * FROM Program WHERE ProgramID = '" + vProgram + "'";
     db.serialize(function() {
         db.all(progq, function(err,rows){

@@ -1,3 +1,5 @@
+var programId = 0;
+var Dayb = [0,0,0,0,0,0,0];
 window.onload = window_onload
 
 function window_onload() {
@@ -18,37 +20,51 @@ function window_onload() {
             var pDays = "";
             if (prog[0][col[8]] == 1) {
                 pDays += "Sunday";
-            }
+                Dayb[0] = 1;
+            } 
             if (prog[0][col[9]] == 1 && pDays == "") {
                 pDays += "Monday";
+                Dayb[1] = 1;
             } else if (prog[0][col[9]] == 1) {
                 pDays += ", Monday";
+                Dayb[1] = 1;
             }
             if (prog[0][col[10]] == 1 && pDays == "") {
                 pDays += "Tuesday";
+                Dayb[2] = 1;
             } else if (prog[0][col[10]] == 1) {
                 pDays += ", Tuesday";
+                Dayb[2] = 1;
             }
             if (prog[0][col[11]] == 1 && pDays == "") {
                 pDays += "Wednesday";
+                Dayb[3] = 1;
             } else if (prog[0][col[11]] == 1) {
                 pDays += ", Wednesday";
+                Dayb[3] = 1;
             }
             if (prog[0][col[12]] == 1 && pDays == "") {
                 pDays += "Thursday";
+                Dayb[4] = 1;
             } else if (prog[0][col[12]] == 1) {
                 pDays += ", Thursday";
+                Dayb[4] = 1;
             }
             if (prog[0][col[13]] == 1 && pDays == "") {
                 pDays += "Friday";
+                Dayb[5] = 1;
             } else if (prog[0][col[13]] == 1) {
                 pDays += ", Friday";
+                Dayb[5] = 1;
             }
             if (prog[0][col[14]] == 1 && pDays == "") {
                 pDays += "Saturday";
-            } else {
+                Dayb[6] = 1;
+            } else if (prog[0][col[14]] == 1){
                 pDays += ", Saturday";
+                Dayb[6] = 1;
             }
+            programId = prog[0][col[1]];
             var pName = prog[0][col[0]];
             var pDate = prog[0][col[5]];
             var pTime = prog[0][col[6]];
@@ -83,8 +99,86 @@ function window_onload() {
             rForm = document.getElementById("pId");
             rForm.value = prog[0][col[1]];
             rButton = document.getElementById("pReg");
-            rButton.setAttribute("onclick", "javascript:this.parentNode.submit()");
+            if (prog[0][col[4]] > 0) {
+                checkAccount(rButton);
+            } else {
+                rButton.innerHTML = "Class Unavailable"
+            }
         }
     })
 
+}
+
+function checkAccount(button) {
+    $.ajax({
+        type: 'GET',
+        url: '/regcheck',
+        data: JSON,
+        success: function(data) {
+            var prog = data;
+            if (prog.length > 0) {
+                var col = [];
+                for (var i = 0; i < prog.length; i++) {
+                    for (var key in prog[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
+                        }
+                    }
+                }
+                for (i = 0; i < prog.length; i++) {
+                    if (programId == prog[i][col[8]]) {
+                        button.innerHTML = "Registered"
+                        i = prog.length;
+                    } else {
+                        for (j = 16; j < 23; j++) {
+                            t = j - 16;
+                            if (Dayb[t] == prog[i][col[j]] && Dayb[t] == 1) {
+                                button.innerHTML = "Conflict";
+                                j = 23;
+                            } if (j == 22 && Dayb[t] != 1) {
+                                button.setAttribute("onclick", "javascript:this.parentNode.submit()");
+                            }
+                        }
+                    }
+                }
+            } else {
+                checklog(button);
+            }
+        }
+    })
+}
+
+function checklog(button) {
+    $.ajax({
+        type: 'GET',
+        url: '/aauth',
+        data: JSON,
+        success: function(data) {
+            var prog = data;
+            if (prog == undefined) {
+                button.innerHTML = "Please Sign In"
+            } else {
+                var col = [];
+                for (var i = 0; i < prog.length; i++) {
+                    for (var key in prog[i]) {
+                        if (col.indexOf(key) === -1) {
+                            col.push(key);
+                        }
+                    }
+                }
+                5
+                for (i = 0; i < prog.length; i++) {
+                    for (var t = 0; t < col.length; t++) {
+                        if (t == 5) {
+                            if (prog[i][col[t]] == 1) {
+                                button.innerHTML = "Switch to Non Staff Account"
+                            } else {
+                                button.setAttribute("onclick", "javascript:this.parentNode.submit()");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
 }

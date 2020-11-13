@@ -1,8 +1,8 @@
 
 /*******************************************************************************
-   Soccer Database - Version 1.4
-   Script: Soccer_Database.sql
-   Description: Creates and populates the soccer database.
+   YMCA Database - Version 1.4
+   Script: YMCA_Database.sql
+   Description: Creates and populates the YMCA database.
    DB Server: Sqlite
    Author: Benjamin Krueger
 ********************************************************************************/
@@ -104,4 +104,16 @@ INSERT INTO [Member_Accounts] (
     Email, Password, AName, Member, Staff
 ) VALUES (
     "janedoe@gmail.com", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "Jane Doe", 1, 0
+);
+
+INSERT INTO [Member_Accounts] (
+    Email, Password, AName, Member, Staff
+) VALUES (
+    "lukeanderson@gmail.com", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "Luke Anderson", 0, 0
+);
+
+INSERT INTO [Member_Accounts] (
+    Email, Password, AName, Member, Staff
+) VALUES (
+    "aini@gmail.com", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "Aini Anderson", 1, 0
 );
