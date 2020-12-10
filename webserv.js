@@ -34,7 +34,7 @@ app.get('/home', function(req, res) {
     } else if (Member == Boolean(true)) {
         res.sendFile(__dirname + "/HomePage(Logged in).html");
     } else {
-        res.sendFile(__dirname + "/HomePage(GenView).html")
+        res.sendFile(__dirname + "/HomePage(General).html")
     }
 });
 
