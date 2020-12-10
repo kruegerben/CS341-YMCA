@@ -98,7 +98,11 @@ function window_onload() {
             Available.innerHTML = ATemp + " " + pAvai;
             rForm = document.getElementById("pId");
             rForm.value = prog[0][col[1]];
+            cForm = document.getElementById("pcId");
+            cForm.value = prog[0][col[1]];
             rButton = document.getElementById("pReg");
+            cButton = document.getElementById("pCan");
+            cButton.style.visibility="hidden";
             if (prog[0][col[4]] > 0) {
                 checkAccount(rButton);
             } else {
@@ -166,12 +170,15 @@ function checklog(button) {
                         }
                     }
                 }
-                5
                 for (i = 0; i < prog.length; i++) {
                     for (var t = 0; t < col.length; t++) {
                         if (t == 5) {
                             if (prog[i][col[t]] == 1) {
-                                button.innerHTML = "Switch to Non Staff Account"
+                                button.innerHTML = "Switch to nonstaff account";
+                                button.style.visibility="hidden";
+                                cButton = document.getElementById("pCan");
+                                cButton.style.visibility="visible";
+                                cButton.setAttribute("onclick", "javascript:this.parentNode.submit()");
                             } else {
                                 button.setAttribute("onclick", "javascript:this.parentNode.submit()");
                             }

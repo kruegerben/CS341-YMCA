@@ -162,6 +162,36 @@ app.post('/pReg', function(req, res) {
     }
 });
 
+app.post('/pCan', function(req, res) {
+    var pCan = "DELETE FROM Program WHERE ProgramID = " + req.body.pId + ";";
+    db.serialize(function() {
+        db.all(pCan, function(err,rows){
+            if(err)                    {
+                console.log(err);
+            }
+        });
+    });
+    var rCan = "DELETE FROM Registration WHERE ProgramID = " + req.body.pId + ";";
+    db.serialize(function() {
+        db.all(rCan, function(err,rows){
+            if(err)                    {
+                console.log(err);
+            }
+        });
+    });
+    if (Staff == Boolean(true)) {
+        if (GenView == Boolean(true)) {
+            res.sendFile(__dirname + "/HomePage(GenView).html");
+        } else {
+            res.sendFile(__dirname + "/HomePage(Staff).html");
+        }
+    } else if (Member == Boolean(true)) {
+        res.sendFile(__dirname + "/HomePage(Logged in).html");
+    } else {
+        res.sendFile(__dirname + "/HomePage(General).html")
+    }
+});
+
 app.post('/home', function(req, res) {
     var Sun = req.body.Sunday;
     if (Sun != '1') {
