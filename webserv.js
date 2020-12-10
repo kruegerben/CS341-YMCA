@@ -72,7 +72,6 @@ app.get("/regcheck", function(req, res){
                 userid = auth[i][1];
             }
         }
-        console.log("Registration check");
         var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Member_Accounts.AccountID = " + userid + ";";
         db.serialize(function() {
             db.all(regq, function(err,rows){
@@ -102,7 +101,6 @@ app.get("/regcheck", function(req, res){
 });
 
 app.get("/regover", function(req, res){
-    console.log("Registration request");
     var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID;";
     db.serialize(function() {
         db.all(regq, function(err,rows){
@@ -346,8 +344,7 @@ app.post('/auth', function(req, res) {
                                 Staff = new Boolean(true);
                             }
                         }
-                        if (j == col.length - 1) { 
-                            console.log(user[0][col[2]])   
+                        if (j == col.length - 1) {  
                             useri = [req.connection.remoteAddress, user[0][col[2]]];
                             auth.push(useri);
                             if (Staff == Boolean(true)) {
