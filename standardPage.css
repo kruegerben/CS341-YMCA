@@ -54,3 +54,50 @@
 	padding: 0px 5px;
 	background-color: rgb(143, 222, 236)
 }
+
+#schedule div{
+  width:95%;
+  margin: auto;
+  background-color: #81D4FA;
+  color: #283593 ;
+  margin-top: 0.5em;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1.5em 1em;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+#schedule #scheduleHeading{
+  background-color: lightgrey;
+  color: black;
+  width: 97.5%;
+  text-align: center;
+  margin-top: 0em;
+  padding: 0.5em 0em;
+  font-size: 1.1em;
+  position:fixed;
+}
+
+#schedule{
+  border-radius: 4px;
+  border: 1px solid gray;
+  height: 20em;
+  overflow: scroll;
+}
+
+#schedule div:nth-child(2){
+  margin-top: 2.7em;
+}
+
+#schedule #canceled{
+  background-color: #FFCDD2;
+  color:#C62828;
+
+}
+
+#schedule #canceled:before{
+  background-color: #FFCDD2;
+  color:#C62828;
+  content: " CANCELED "
+
+}
