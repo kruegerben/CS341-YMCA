@@ -67,15 +67,14 @@
   font-size: 1em;
 }
 
-#schedule #scheduleHeading{
+#scheduleHeading{
   background-color: lightgrey;
   color: black;
-  width: 97.5%;
+  width: 100%;
   text-align: center;
   margin-top: 0em;
   padding: 0.5em 0em;
   font-size: 1.1em;
-  position:fixed;
 }
 
 #schedule{
@@ -83,10 +82,7 @@
   border: 1px solid gray;
   height: 20em;
   overflow: scroll;
-}
-
-#schedule div:nth-child(2){
-  margin-top: 2.7em;
+  margin-bottom: 5em;
 }
 
 #schedule #canceled{
@@ -100,4 +96,8 @@
   color:#C62828;
   content: " CANCELED "
 
+}
+
+#schedule div:last-child{
+  margin-bottom: .7em;
 }
