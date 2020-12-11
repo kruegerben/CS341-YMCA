@@ -16,6 +16,8 @@
   				<a class="menuitem" href="./HomePage(Staff).html">Home</a>
   				<a class="menuitem" href=http://127.0.0.1:8080/programs>Programs</a>
 				<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a>
+				<a class= "menuitem" href="/pReg">Registration</a>
+				<a class = "menuitem" href="./users">Users</a>
 			</div>
 		</nav>
 
@@ -65,7 +67,11 @@
 						<input name="pCap" type="number" min="0">
 					</label class="program">
 				</div>
-				<input type="submit" value="Create">
+				<input onclick="prompt()" type="submit" value="Create">
+				<script>function prompt() {
+					alert("Program Created");	
+				}
+				</script>
 			</form>
 		</div>
 	</body>

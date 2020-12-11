@@ -70,7 +70,7 @@ function window_onload() {
             var pTime = prog[0][col[6]];
             var pPric = "$" + prog[0][col[2]] + "/$" + prog[0][col[3]];
             var pLoca = prog[0][col[7]];
-            var pDesc = prog[0][col[15]];
+            var pDesc = prog[0][col[16]];
             var pAvai = prog[0][col[4]];
             var Name = document.getElementById("pName");
             var NTemp = Name.innerHTML;
@@ -103,7 +103,7 @@ function window_onload() {
             rButton = document.getElementById("pReg");
             cButton = document.getElementById("pCan");
             cButton.style.visibility="hidden";
-            if (prog[0][col[4]] > 0) {
+            if (prog[0][col[4]] > 0 && prog[0][col[15]] == 0) {
                 checkAccount(rButton);
             } else {
                 rButton.innerHTML = "Class Unavailable"
@@ -178,9 +178,9 @@ function checklog(button) {
                                 button.style.visibility="hidden";
                                 cButton = document.getElementById("pCan");
                                 cButton.style.visibility="visible";
-                                cButton.setAttribute("onclick", "javascript:this.parentNode.submit()");
+                                cButton.setAttribute("onclick", "javascript:Cancel(this)");
                             } else {
-                                button.setAttribute("onclick", "javascript:this.parentNode.submit()");
+                                button.setAttribute("onclick", "javascript:Register(this)");
                             }
                         }
                     }
@@ -188,4 +188,14 @@ function checklog(button) {
             }
         }
     })
+}
+
+function Cancel(can) {
+    if(!confirm("You are about to cancel this class.")) return;
+    can.parentNode.submit();
+}
+
+function Register(reg) {
+    if(!confirm("You are about to register for this class.")) return;
+    reg.parentNode.submit();
 }

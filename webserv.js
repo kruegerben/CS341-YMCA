@@ -24,6 +24,25 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
+app.get('/users', function(req, res) {
+    res.sendFile(__dirname + "/users.html");
+});
+
+app.get('/accview', function(req, res) {
+    var progq = "SELECT * FROM Member_Accounts;";
+    db.serialize(function() {
+        db.all(progq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.send(rows);
+            }
+        });
+    });
+});
+
 app.get('/home', function(req, res) {
     if (Staff == Boolean(true)) {
         if (GenView == Boolean(true)) {
@@ -101,7 +120,7 @@ app.get("/regcheck", function(req, res){
 });
 
 app.get("/regover", function(req, res){
-    var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID;";
+    var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Canceled = 0;";
     db.serialize(function() {
         db.all(regq, function(err,rows){
             if(err)
@@ -163,17 +182,9 @@ app.post('/pReg', function(req, res) {
 });
 
 app.post('/pCan', function(req, res) {
-    var pCan = "DELETE FROM Program WHERE ProgramID = " + req.body.pId + ";";
+    var pCan = "UPDATE [PROGRAM] SET Canceled = 1 WHERE ProgramID = " + req.body.pId + ";";
     db.serialize(function() {
         db.all(pCan, function(err,rows){
-            if(err)                    {
-                console.log(err);
-            }
-        });
-    });
-    var rCan = "DELETE FROM Registration WHERE ProgramID = " + req.body.pId + ";";
-    db.serialize(function() {
-        db.all(rCan, function(err,rows){
             if(err)                    {
                 console.log(err);
             }
@@ -262,7 +273,7 @@ app.post('/home', function(req, res) {
     var nPrice = req.body.nonmem;
     var mPrice = req.body.mem;
     
-    var insertq = 'INSERT INTO [Program] ( Name, MemberCost, NonCost, Capacity, Date, Time, Location, Sun, Mon, Tue, Wed, Thur, Fri, Sat, Description) VALUES ( "' + progName + '", ' + mPrice + ', '+ nPrice +', '+ progCap +', "'+ dateRange +'", "'+ timeRange +'", "'+ progLoc +'", "'+ Sun +'", "'+ Mon +'", "'+ Tue +'", "'+ Wed +'", "'+ Thur +'", "'+ Fri +'", "'+ Sat +'", "'+ progDesc +'");';
+    var insertq = 'INSERT INTO [Program] ( Name, MemberCost, NonCost, Capacity, Date, Time, Location, Sun, Mon, Tue, Wed, Thur, Fri, Sat, Canceled, Description) VALUES ( "' + progName + '", ' + mPrice + ', '+ nPrice +', '+ progCap +', "'+ dateRange +'", "'+ timeRange +'", "'+ progLoc +'", "'+ Sun +'", "'+ Mon +'", "'+ Tue +'", "'+ Wed +'", "'+ Thur +'", "'+ Fri +'", "'+ Sat +'", 0, "'+ progDesc +'");';
     db.serialize(function() {
         db.all(insertq, function(err,rows){
             if(err)
@@ -305,7 +316,7 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/proover', function(req, res) {
-    var progq = "SELECT * FROM Program";
+    var progq = "SELECT * FROM Program WHERE Canceled = 0";
     db.serialize(function() {
         db.all(progq, function(err,rows){
             if(err)

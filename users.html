@@ -18,6 +18,8 @@
     width: 100%;
    }
    </style>
+   <script type='text/javascript' src='users.js'></script>
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   </head>
   <body>
     <nav class="menu">
@@ -30,21 +32,18 @@
   </nav>
    <form id = "searchbar">
       <input id="searchField" type="text" placeholder="Search...">
-      <select id = "dropdown">
-        <option value="user">User</option>
-      </select>
       <input id= "submit" type="submit" value="Submit">
   </form>
   <table id="usersTable">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
+        <th>Account ID</th>
+        <th>Name</th>
         <th>Email</th>
-        <th>Phone</th>
+        <th>Status</th>
       </tr>
     <thead>
-    <tbody>
+    <tbody id = "accounts">
     </tbody>
   <table>
   </body>

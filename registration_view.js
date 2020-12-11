@@ -22,8 +22,8 @@ function window_onload() {
             for (var i = 0; i < prog.length; i++) {
                 tr = tbody.insertRow(-1);
                 var tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = prog[i][col[9]];
-                pnames.push(prog[i][col[8]]);
+                tabCell.innerHTML = prog[i][col[10]];
+                pnames.push(prog[i][col[9]]);
                 tabCell.setAttribute("onclick", "javascript:DetailsRequest("+h+")");
                 tabCell = tr.insertCell(-1);
                 tabCell.innerHTML = prog[i][col[3]];
