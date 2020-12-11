@@ -9,10 +9,14 @@ const bodyParser = require("body-parser");
 const { Console } = require('console');
 const crypto = require('crypto');
 const router = express.Router();
-var Member = new Boolean(false);
 var Staff = new Boolean(false);
 var GenView = new Boolean(false);
+var LoggedIn = new Boolean(false);
 var vProgram = "";
+var uquery = "";
+var pquery = "";
+var rquery = "";
+var ropt = "Program";
 hash = crypto.getHashes();
 var auth = new Array();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,7 +54,7 @@ app.get('/home', function(req, res) {
         } else {
             res.sendFile(__dirname + "/HomePage(Staff).html");
         }
-    } else if (Member == Boolean(true)) {
+    } else if (LoggedIn == Boolean(true)) {
         res.sendFile(__dirname + "/HomePage(Logged in).html");
     } else {
         res.sendFile(__dirname + "/HomePage(General).html")
@@ -170,7 +174,7 @@ app.post('/pReg', function(req, res) {
                         } else {
                             res.sendFile(__dirname + "/HomePage(Staff).html");
                         }
-                    } else if (Member == Boolean(true)) {
+                    } else if (LoggedIn == Boolean(true)) {
                         res.sendFile(__dirname + "/HomePage(Logged in).html");
                     } else {
                         res.sendFile(__dirname + "/HomePage(General).html")
@@ -196,7 +200,7 @@ app.post('/pCan', function(req, res) {
         } else {
             res.sendFile(__dirname + "/HomePage(Staff).html");
         }
-    } else if (Member == Boolean(true)) {
+    } else if (LoggedIn == Boolean(true)) {
         res.sendFile(__dirname + "/HomePage(Logged in).html");
     } else {
         res.sendFile(__dirname + "/HomePage(General).html")
@@ -297,10 +301,131 @@ app.get('/_home', function(req, res) {
             auth.splice(i, 1);
         }
     }
-    Member = new Boolean(false);
+    LoggedIn = new Boolean(false);
     Staff = new Boolean(false);
     GenView = new Boolean(false);
     res.sendFile(__dirname + "/HomePage(General).html");
+});
+
+app.post("/seuser", function(req, res) {
+    uquery = req.body.query;
+    res.sendFile(__dirname + "/users.html");
+})
+
+app.get("/seuser", function(req, res) {
+    var progq = "SELECT * FROM Member_Accounts WHERE AName LIKE \'%" + uquery + "%\';";
+    db.serialize(function() {
+        db.all(progq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.send(rows);
+            }
+        });
+    });
+})
+
+app.post("/seprog", function(req, res) {
+    pquery = req.body.query;
+    res.sendFile(__dirname + "/programs.html");
+})
+
+app.get("/seprog", function(req, res) {
+    var progq = "SELECT * FROM Program WHERE Name LIKE \'%" + pquery + "%\' AND Canceled = 0;";
+    db.serialize(function() {
+        db.all(progq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.send(rows);
+            }
+        });
+    });
+})
+
+app.post("/sereg", function(req, res) {
+    rquery = req.body.query;
+    ropt = req.body.ropt
+    res.sendFile(__dirname + "/registration_view.html");
+})
+
+app.get("/sereg", function(req, res) {
+    if (ropt == "User") {
+        var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Canceled = 0 AND AName LIKE \'%" + rquery + "%\';";
+    }
+    else if (ropt == "Program") {
+        var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Canceled = 0 AND Name LIKE \'%" + rquery + "%\';";
+    }
+    db.serialize(function() {
+        db.all(regq, function(err,rows){
+            if(err)
+            {
+                console.log(err);
+            }
+            else{
+                res.send(rows);
+            }
+        });
+    });
+})
+
+app.get("/usprog", function(req, res) {
+    var userid = 0;
+    if (auth.length > 0) {
+        for (let i = 0; i < auth.length; i++) {
+            if (auth[i][0] == req.connection.remoteAddress) {
+                userid = auth[i][1];
+            }
+        }
+        var uspq = "SELECT * FROM Program JOIN Registration ON Program.ProgramID == Registration.ProgramID WHERE MemberID = " + userid + ";";
+        db.serialize(function() {
+            db.all(uspq, function(err,rows){
+                if(err)
+                {
+                    console.log(err);
+                }
+                else{
+                    res.send(rows);
+                }
+            });
+        });
+    } 
+})
+
+app.post("/statch", function(req, res) {
+    if(req.body.stat == 1) {
+        var statq = "UPDATE [Member_Accounts] SET Status = 0 WHERE AccountID = " + req.body.AccID + ";";
+        var inccap = "UPDATE Program SET Capacity = Capacity + 1 WHERE ProgramID IN (SELECT ProgramID FROM Registration WHERE MemberID = " + req.body.AccID + ");";
+        db.serialize(function() {
+            db.all(inccap, function(err,rows){
+                if(err)                    {
+                    console.log(err);
+                }
+            });
+        });
+        var delreg = "DELETE FROM Registration WHERE MemberID = " + req.body.AccID + ";";
+        db.serialize(function() {
+            db.all(delreg, function(err,rows){
+                if(err)                    {
+                    console.log(err);
+                }
+            });
+        });
+    } else {
+        var statq = "UPDATE [Member_Accounts] SET Status = 1 WHERE AccountID = " + req.body.AccID + ";";
+    }
+    db.serialize(function() {
+        db.all(statq, function(err,rows){
+            if(err)                    {
+                console.log(err);
+            }
+        });
+    });
+    res.sendFile(__dirname + "/users.html");
 });
 
 app.get('/programs', function(req, res) {
@@ -351,14 +476,14 @@ app.get('/prodet', function(req, res) {
 });
 
 app.get('/acc', function(req, res) {
-    res.send({"Member": Member + "", "Staff": Staff + ""});
+    res.send({"Member": LoggedIn + "", "Staff": Staff + ""});
 })
 
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
     var password = crypto.createHash('sha256').update(req.body.psw).digest('hex');
     db.serialize(function() {
-        const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "';";
+        const searchq = "SELECT * FROM Member_Accounts WHERE Email = '" + name + "' AND Password = '" + password + "' AND Status = 1;";
         db.all(searchq, function(err,rows) {
             if (err)
             {
@@ -377,10 +502,8 @@ app.post('/auth', function(req, res) {
                 }
                 for (var i = 0; i < user.length; i++) {
                     for (var j = 0; j < col.length; j++) {
+                        LoggedIn = new Boolean(true);
                         if (user[i][col[j]] == 1) {
-                            if (j == 4) {
-                                Member = new Boolean(true);
-                            }
                             if (j == 5) {
                                 Staff = new Boolean(true);
                             }
@@ -390,7 +513,7 @@ app.post('/auth', function(req, res) {
                             auth.push(useri);
                             if (Staff == Boolean(true)) {
                                 res.sendFile(__dirname + "/HomePage(Staff).html");
-                            } else if (Member == Boolean(true)) {
+                            } else if (LoggedIn == Boolean(true)) {
                                 res.sendFile(__dirname + "/HomePage(Logged in).html");
                             } else {
                                 res.sendFile(__dirname + "/HomePage(General).html")

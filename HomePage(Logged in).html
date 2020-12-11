@@ -3,8 +3,29 @@
 	<head>
 		<link rel="stylesheet" href="/standardPage.css">
 		<title>YMCA Home Page</title>
+		<script type='text/javascript' src='userprog.js'></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<style>
+			th, td {
+			  padding: 8px;
+			  text-align: center;
+			  border-bottom: 1px solid #DDDDDD;
+			  font-family: Arial;
+			}
+			
+		   table {
+			margin-left:auto; 
+			margin-right:auto;
+			width: 90%;
+		   }
+		
+		   tr:hover{
+			background-color: WhiteSmoke;
+		   }
+		   </style>
 	</head>
 	<body>
+		<div id="cover"></div>
 		<a href="./HomePage(Logged in).html"><img class="logo" src="https://cdn.atlantajewishconnector.com/uploads/2020/03/YMCA-Logo.png" alt="YMCA logo"></a>
 		<div>
 			<a class="account" href="/_home">Log out</a>
@@ -14,11 +35,21 @@
 
   				<a class="menuitem" href="./HomePage(Logged in).html">Home</a>
   				<a class="menuitem" href="http://127.0.0.1:8080/programs">Programs</a>
-			<!--	<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a> --!>
 
 		</nav>
 		<div id = "scheduleHeading">Programs</div>
-   		 <div id = "schedule"></div>
+   		 	<div id = "schedule">
+				<table>
+    				<tbody id = "programs">
+    					<tr>
+     						<th>Name</th>
+							 <th>Time</th>
+							 <th>Dates</th>
+							 <th>Status</th>
+    					</tr>
+    				</tbody>
+  				</table>
+			</div>
 		<div>
 			<h1> Welcome to the YMCA</h1>
 		</div>

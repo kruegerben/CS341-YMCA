@@ -105,6 +105,8 @@ function window_onload() {
             cButton.style.visibility="hidden";
             if (prog[0][col[4]] > 0 && prog[0][col[15]] == 0) {
                 checkAccount(rButton);
+            } else if (prog[0][col[15]] == 0) {
+                checkAccount(rButton);
             } else {
                 rButton.innerHTML = "Class Unavailable"
             }
@@ -130,16 +132,16 @@ function checkAccount(button) {
                     }
                 }
                 for (i = 0; i < prog.length; i++) {
-                    if (programId == prog[i][col[8]]) {
+                    if (programId == prog[i][col[9]]) {
                         button.innerHTML = "Registered"
                         i = prog.length;
                     } else {
-                        for (j = 16; j < 23; j++) {
-                            t = j - 16;
-                            if (Dayb[t] == prog[i][col[j]] && Dayb[t] == 1) {
+                        for (j = 17; j < 24; j++) {
+                            t = j - 17;
+                            if (Dayb[t] == prog[i][col[j]] && Dayb[t] == 1 && prog[i][col[15]] == 0) {
                                 button.innerHTML = "Conflict";
-                                j = 23;
-                            } if (j == 22 && Dayb[t] != 1) {
+                                j = 27;
+                            } if (j == 23 && Dayb[t] != 1) {
                                 button.setAttribute("onclick", "javascript:this.parentNode.submit()");
                             }
                         }
@@ -159,7 +161,7 @@ function checklog(button) {
         data: JSON,
         success: function(data) {
             var prog = data;
-            if (prog == undefined) {
+            if (prog == undefined || prog.length < 1) {
                 button.innerHTML = "Please Sign In"
             } else {
                 var col = [];

@@ -35,11 +35,11 @@
 	  	<a class = "menuitem" href="./users.html">Users</a>
 		<a class="menuitem" href="./help_staff.html">Help</a>
   </nav>
-  <form id = "searchbar">
-    <input id="searchField" type="text" placeholder="Search...">
-    <select id = "dropdown">
-      <option value="program">Program</option>
-      <option value="user">User</option>
+  <form id = "searchbar" action="/sereg" method="POST">
+    <input id="searchField" name="query" type="text" placeholder="Search...">
+    <select id = "dropdown" name="ropt">
+      <option value="Program">Program</option>
+      <option value="User">User</option>
     </select>
     <input id= "submit" type="submit" value="Submit">
   </form>
