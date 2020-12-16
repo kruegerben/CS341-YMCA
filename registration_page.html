@@ -28,26 +28,32 @@
 	</head>
 	<body>
 		<div class="container">
+<!-- 			The YMCA Logo -->
 		<a href="./_home"><img class="logo" src="https://cdn.atlantajewishconnector.com/uploads/2020/03/YMCA-Logo.png" alt="YMCA logo"></a>
 
 		<div class="register">
             <form action="/home" method="post">
-                   <div>
+<!--                    The text boxes for first and last names -->
+		    <div>
                        <label>Name: </label><input type="text" class=first-name placeholder="First name" required><input type="text" placeholder="Last name" required>
                    </div>
                    
+<!-- 		    The text boxes for email -->
                    <div>
                        <label>Email: </label><input type="email" required>
                    </div>
                    
+<!-- 		    Textbox for password -->
                     <div>
                         <label>Password: </label><input type="password" required>
                     </div>
-
+			
+<!-- 		    Textbox to confirm password -->
                     <div>
                         <label>Confirm Password: </label><input type="password" required>
                     </div>
 
+<!-- 		  Selection to be a member or non-member -->
                     <div>
                         <label>Status:</label>
                         <select name="status" required>
@@ -58,7 +64,7 @@
                         <!-- <label><input type="radio" name="status">Member</label>
                         <label><input type="radio" name="status">Non-member</label> -->
                     </div>
-
+<!-- 			Button to confirm your registration -->
                     <input type="submit" value="Register">
 			</form>
 		</div>
