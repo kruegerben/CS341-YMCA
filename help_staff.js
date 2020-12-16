@@ -1,3 +1,4 @@
+// Pregenerated answers to questions the staff might need help with
 let answers = [
 `1) Click on the "Create a Program" tab on the menu bar
     
@@ -17,12 +18,15 @@ let answers = [
 
 3) Click on button to delete user
 `]
-    
+ 
+// Function that will have the answer based on what question is asked
     function checkProb(){
+        // Removes previous answer if there was an answer already
         let y = document.getElementById("answer")
         if(y.firstChild != null){
           y.removeChild(y.firstChild)
         }
+        // The following code will change the answer based on the question that got selected in the select box
         let x = document.getElementById("problem").value
         if(x == 'create'){
           let para = document.createElement('pre')
