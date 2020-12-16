@@ -6,21 +6,28 @@
         <script src="help_public.js"></script>
 	</head>
 	<body>
+<!-- 		YMCA logo -->
 		<a href="http://127.0.0.1:8080/"><img class="logo" src="https://cdn.atlantajewishconnector.com/uploads/2020/03/YMCA-Logo.png" alt="YMCA logo"></a>
-        <div>
+        	
+<!-- 		The login and register buttons -->
+		<div>
 			<a class="account" href="./login">Log in</a>
 			<a class="account" href="./register">Register</a>
 		</div>
 
+<!-- 		The navigation bar -->
 		<nav class="menu">	
-            <a class="menuitem" href="http://127.0.0.1:8080/">Home</a>
-            <a class="menuitem" href="http://127.0.0.1:8080/programs">Programs</a>
-            <a class="menuitem" href="http://127.0.0.1:8080/help_public_notLogged.html">Help</a>		
+            		<a class="menuitem" href="http://127.0.0.1:8080/">Home</a>
+            		<a class="menuitem" href="http://127.0.0.1:8080/programs">Programs</a>
+           		<a class="menuitem" href="http://127.0.0.1:8080/help_public_notLogged.html">Help</a>		
 		</nav>
+		
+		// The help page is contained inside this container
 		<div>
-            <h1>Help Page</h1>
-            <div id='help-container'>
+            	<h1>Help Page</h1>
+            	<div id='help-container'>
                 <form>
+<!-- 			A select bar that allows the user to select from pregenerated questions -->
                     <select name="problem" id="problem" onclick="checkProb()">
                         <option selected></option>
                         <option value="register">How do I register?</option>
@@ -29,10 +36,12 @@
                         <option value="prob_login">Problems with logging in</option>
                     </select>
                 </form>
+<!-- 		The answer will go insied this container -->
                 <div id='answer'>
 
                 </div>
             </div>
+<!-- 			Label to notify the user with additional contact information -->
 	    <div id='additional'>
                 <p>Please contact us at mysupport@ymca.com or call us at (123)456-7890 with any addition questions, comments, or concerns.</p>
             </div>
