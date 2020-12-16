@@ -6,23 +6,29 @@
         <script src="help_staff.js"></script>
 	</head>
 	<body>
+<!-- 		YMCA Logo -->
 		<a href="./HomePage(Staff).html"><img class="logo" src="https://cdn.atlantajewishconnector.com/uploads/2020/03/YMCA-Logo.png" alt="YMCA logo"></a>
-        <div>
+<!--         	Logout button -->
+		<div>
 			<a class="account" href="/_home">Log Out</a>
 		</div>
 
+<!-- 		navigation bar -->
 		<nav class="menu">
-            <a class="menuitem" href="./HomePage(Staff).html">Home</a>
-            <a class="menuitem" href="http://127.0.0.1:8080/programs">Programs</a>
-            <a class="menuitem" href="./BuildingAProgram.html">Create a Program</a>
-            <a class= "menuitem" href="/pReg">Registration</a>
-            <a class = "menuitem" href="./users.html">Users</a>
-            <a class="menuitem" href="./help_staff.html">Help</a>
-        </nav>
+            		<a class="menuitem" href="./HomePage(Staff).html">Home</a>
+            		<a class="menuitem" href="http://127.0.0.1:8080/programs">Programs</a>
+            		<a class="menuitem" href="./BuildingAProgram.html">Create a Program</a>
+            		<a class= "menuitem" href="/pReg">Registration</a>
+            		<a class = "menuitem" href="./users.html">Users</a>
+            		<a class="menuitem" href="./help_staff.html">Help</a>
+       		</nav>
+		
+<!-- 		The help page container -->
 		<div>
             <h1>Help Page</h1>
             <div id='help-container'>
                 <form>
+<!-- 			Pregenerated questions that the staff member might have -->
                     <select name="problem" id="problem" onclick="checkProb()">
                         <option selected></option>
                         <option value="create">How to create a program</option>
@@ -30,6 +36,8 @@
                         <option value="delete">How to delete an account</option>
                     </select>
                 </form>
+		    
+<!-- 		    The answer will go into this container -->
                 <div id='answer'>
 
                 </div>
