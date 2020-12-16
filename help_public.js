@@ -1,3 +1,4 @@
+// All the possible answers for the current questions
 let answers = [
 `1) Click on the "Register" button near the top right of the page
 
@@ -28,13 +29,15 @@ member to get your account unlocked again.
 `
 ]
 
-
+// Function that will show answer to question depending on what question is selected
 function checkProb(){
     let y = document.getElementById("answer")
+    // Removes the answer before if there is an answer there already
     if(y.firstChild != null){
       y.removeChild(y.firstChild)
     }
     let x = document.getElementById("problem").value
+    // The following code will check to see which question was selected and changes the answer based on the question asked
     if(x == 'register'){
       let para = document.createElement('pre')
       let txt = document.createTextNode(answers[0])
