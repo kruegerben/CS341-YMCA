@@ -1,6 +1,15 @@
+/**
+ * Author: Benjamin Krueger
+ * 
+ * This program shows the user all the programs that they have registered for.
+ * 
+ */
 document.addEventListener("DOMContentLoaded", window_onload, false);
 var pnames = [];
 
+/**
+ * This function loads in the users programs and notifies shows them whether it is active or canceled.
+ */
 function window_onload() {
     $("#cover").hide();
     pnames = [];
@@ -43,6 +52,11 @@ function window_onload() {
     })
 }
 
+/**
+ * When the user clicks a programs name they are redirected to its details using this function
+ * 
+ * @param index - is the parameter that is used to send the user to the correct program 
+ */
 function DetailsRequest(index) {
     location.href = '/program_view/' + pnames[index];
 }

@@ -1,7 +1,13 @@
+/*
+Author: Benjamin Krueger
+
+This program loads in the details for the specific program and will also check if the user is allowed to register for the class.
+*/
 var programId = 0;
 var Dayb = [0,0,0,0,0,0,0];
 window.onload = window_onload
 
+// This function is the first function to run and fill in all details for the program.
 function window_onload() {
     $.ajax({
         type: 'GET',
@@ -115,6 +121,7 @@ function window_onload() {
 
 }
 
+// This function is to check if the user is registered or has a conflict
 function checkAccount(button) {
     $.ajax({
         type: 'GET',
@@ -154,6 +161,10 @@ function checkAccount(button) {
     })
 }
 
+/*
+This function goes through a checks that the user is signed in as a member/nonmember
+if the user is signed in as a staff member it gives them the delete program button.
+*/
 function checklog(button) {
     $.ajax({
         type: 'GET',

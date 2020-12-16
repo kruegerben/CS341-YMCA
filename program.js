@@ -1,6 +1,12 @@
+/*
+Author: Benjamin Krueger
+
+This programs loads in and shows every program available.
+*/
 window.onload = window_onload
 var pnames = [];
 
+// This function loads in every program and loads create button to view their details
 function window_onload() {
     pnames = [];
     var url = window.location.href;
@@ -68,6 +74,7 @@ function window_onload() {
     }
 }
 
+// This function is called when the user taps on a program this will go to the details page.
 function DetailsRequest(index) {
     location.href = '/program_view/' + pnames[index];
 }

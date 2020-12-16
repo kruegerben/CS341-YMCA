@@ -1,3 +1,8 @@
+/**
+ * Author: Benjamin Krueger
+ * 
+ * This is the main backend program for use on the server.
+ */
 var express = require('express');
 const livereload = require('livereload');
 const reload = livereload.createServer();
@@ -21,17 +26,20 @@ hash = crypto.getHashes();
 var auth = new Array();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+//This sets the database that we have setup and are using
 let db = new sqlite3.Database('./CS341-YMCA.db');
 
+// This responds to the entry request. When the user first arrives at the website.
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
+// This sends the users page when staff request it
 app.get('/users', function(req, res) {
     res.sendFile(__dirname + "/users.html");
 });
 
+// This page responds to any request to fill the users page.
 app.get('/accview', function(req, res) {
     var progq = "SELECT * FROM Member_Accounts;";
     db.serialize(function() {
@@ -47,6 +55,7 @@ app.get('/accview', function(req, res) {
     });
 });
 
+//This responds to the request to arrive at the home page
 app.get('/home', function(req, res) {
     if (Staff == Boolean(true)) {
         if (GenView == Boolean(true)) {
@@ -61,6 +70,7 @@ app.get('/home', function(req, res) {
     }
 });
 
+// This responds to verify that the user actually has an account
 app.get("/aauth", function(req, res){
     userid = 0;
         for (let i = 0; i < auth.length; i++) {
@@ -87,6 +97,7 @@ app.get("/aauth", function(req, res){
         }
 });
 
+// This checks if the user has registered for the program.
 app.get("/regcheck", function(req, res){
     var userid = 0;
     if (auth.length > 0) {
@@ -123,6 +134,7 @@ app.get("/regcheck", function(req, res){
     }
 });
 
+// This responds to request to view all registrations
 app.get("/regover", function(req, res){
     var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Canceled = 0;";
     db.serialize(function() {
@@ -138,11 +150,12 @@ app.get("/regover", function(req, res){
     });
 });
 
+// This sends the staff member the registration page.
 app.get("/pReg", function(req, res) {
     res.sendFile(__dirname + "/registration_view.html");
 });
 
-
+// This is the request that registers users for their programs.
 app.post('/pReg', function(req, res) {
     commit = Boolean(true);
     var userid = 0;
@@ -185,6 +198,7 @@ app.post('/pReg', function(req, res) {
     }
 });
 
+// This is the request the staff sends when they want to cancel a program.
 app.post('/pCan', function(req, res) {
     var pCan = "UPDATE [PROGRAM] SET Canceled = 1 WHERE ProgramID = " + req.body.pId + ";";
     db.serialize(function() {
@@ -207,6 +221,7 @@ app.post('/pCan', function(req, res) {
     }
 });
 
+// This is request that makes a program in the database using the data the user inputed.
 app.post('/home', function(req, res) {
     var Sun = req.body.Sunday;
     if (Sun != '1') {
@@ -291,10 +306,12 @@ app.post('/home', function(req, res) {
     });
 });
 
+// Views the registration page.
 app.get('/register', function(req, res) {
     res.sendFile(__dirname + "/registration_page.html");
 });
 
+// This is the log out request.
 app.get('/_home', function(req, res) {
     for (let i = 0; i < auth.length; i++) {
         if (auth[i][0] == req.connection.remoteAddress) {
@@ -307,11 +324,13 @@ app.get('/_home', function(req, res) {
     res.sendFile(__dirname + "/HomePage(General).html");
 });
 
+// This is the request to view all the users that fit a specific parameter the query
 app.post("/seuser", function(req, res) {
     uquery = req.body.query;
     res.sendFile(__dirname + "/users.html");
 })
 
+// This is the request that gets all the user accounts from the database and sends it to the frontend.
 app.get("/seuser", function(req, res) {
     var progq = "SELECT * FROM Member_Accounts WHERE AName LIKE \'%" + uquery + "%\';";
     db.serialize(function() {
@@ -327,11 +346,13 @@ app.get("/seuser", function(req, res) {
     });
 })
 
+// This is the request to view all the programs that fit a specific parameter the query
 app.post("/seprog", function(req, res) {
     pquery = req.body.query;
     res.sendFile(__dirname + "/programs.html");
 })
 
+// THis is the request that gets all the programs for the database and sends them to the frontend
 app.get("/seprog", function(req, res) {
     var progq = "SELECT * FROM Program WHERE Name LIKE \'%" + pquery + "%\' AND Canceled = 0;";
     db.serialize(function() {
@@ -347,12 +368,14 @@ app.get("/seprog", function(req, res) {
     });
 })
 
+// This is the request that views all registration that fit a specific parameter the query.
 app.post("/sereg", function(req, res) {
     rquery = req.body.query;
     ropt = req.body.ropt
     res.sendFile(__dirname + "/registration_view.html");
 })
 
+// This is the request that gets all the registrations from the database and sends them to the frontend.
 app.get("/sereg", function(req, res) {
     if (ropt == "User") {
         var regq = "SELECT * FROM Member_Accounts JOIN Registration ON Member_Accounts.AccountID = Registration.MemberID JOIN Program ON Registration.ProgramID = Program.ProgramID WHERE Canceled = 0 AND AName LIKE \'%" + rquery + "%\';";
@@ -373,6 +396,7 @@ app.get("/sereg", function(req, res) {
     });
 })
 
+// This sends the user all the programs there is registration on.
 app.get("/usprog", function(req, res) {
     var userid = 0;
     if (auth.length > 0) {
@@ -396,6 +420,7 @@ app.get("/usprog", function(req, res) {
     } 
 })
 
+// This updates the status of the account to activate or delete it.
 app.post("/statch", function(req, res) {
     if(req.body.stat == 1) {
         var statq = "UPDATE [Member_Accounts] SET Status = 0 WHERE AccountID = " + req.body.AccID + ";";
@@ -428,18 +453,22 @@ app.post("/statch", function(req, res) {
     res.sendFile(__dirname + "/users.html");
 });
 
+// Sends the program viewing pages to see all the programs
 app.get('/programs', function(req, res) {
     res.sendFile(__dirname + "/programs.html");
 });
 
+// This sends everything for the program.
 app.get('/programs/:data', function(req, res) {
     res.sendFile(__dirname + "/" + req.params.data);
 });
 
+// This sends the user to the login page.
 app.get('/login', function(req, res) {
     res.sendFile(__dirname + "/login.html");
 });
 
+// This sends every program that is still active.
 app.get('/proover', function(req, res) {
     var progq = "SELECT * FROM Program WHERE Canceled = 0";
     db.serialize(function() {
@@ -455,6 +484,7 @@ app.get('/proover', function(req, res) {
     });
 });
 
+// This gets the programs details from the database and sends it to the frontend.
 app.get('/prodet', function(req, res) {
     for (let i = 0; i < auth.length; i++) {
         if (auth[i][0] == req.connection.remoteAddress) {
@@ -475,10 +505,12 @@ app.get('/prodet', function(req, res) {
     });
 });
 
+// This just responds to the responds to the request of account status.
 app.get('/acc', function(req, res) {
     res.send({"Member": LoggedIn + "", "Staff": Staff + ""});
 })
 
+// This takes and authenticates the login information submitted by the user
 app.post('/auth', function(req, res) {
     var name = req.body.uname;
     var password = crypto.createHash('sha256').update(req.body.psw).digest('hex');
@@ -527,19 +559,23 @@ app.post('/auth', function(req, res) {
     })
 });
 
+// Thist sends the css file for viewing a specific programs details.
 app.get('/program_view/standardPage.css', function(req, res) {
     res.sendFile(__dirname + "/standardPage.css");
 });
 
+// This send the javascript file for view a specific programs details.
 app.get('/program_view/program_view.js', function(req, res) {
     res.sendFile(__dirname + "/program_view.js");
 });
 
+// This tells the page what program we are looking at.
 app.get('/program_view/:pname', function(req, res) {
     vProgram = req.params.pname;
     res.sendFile(__dirname + "/program_view.html");
 });
 
+// This request sends any files that are required by the HTML files.
 app.get('/:data', function(req, res) {
     if (req.params.data == "HomePage(GenView).html") {
         GenView = new Boolean(true);
@@ -547,6 +583,7 @@ app.get('/:data', function(req, res) {
     res.sendFile(__dirname + "/" + req.params.data);
 });
 
+// This just tells the application to listen to any requests from a certain port.
 app.listen(port, function() {
     console.log('Listening on port %d', port);
 })

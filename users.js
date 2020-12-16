@@ -1,7 +1,15 @@
+/**
+ * Author: Benjamin Krueger
+ * 
+ * This program is used to load all the users that have accounts with this YMCA website.
+ */
 document.addEventListener("DOMContentLoaded", window_onload, false);
 var anames = [];
 var accstat = [];
 
+/**
+ * This function loads in all of the users and adds a button to delete account or reactivate.
+ */
 function window_onload() {
     $("#cover").hide();
     anames = [];
@@ -209,10 +217,21 @@ function window_onload() {
     }
 }
 
+/**
+ * This function simply checks if the users was deleted or not and if it has then it will be displayed as red.
+ * 
+ * @param el - is the element that has been deleted
+ */
 function displayDel(el) {
     el.style.color = "red";
 }
 
+/**
+ * This function will submit the status change as long as the user confirms the change.
+ * 
+ * @param index is the parameter that so the page knows the status of the account you are changing
+ * @param button is the parameter so that the page knows what button is clicked
+ */
 function SubForm(index, button) {
     var r = false;
     var r = confirmSubmit(index);
@@ -223,6 +242,11 @@ function SubForm(index, button) {
     }
 }
 
+/**
+ * This function prompts the user to make sure they truly want to change the accounts status.
+ * 
+ * @param index is the parameter used to know the status of the user 
+ */
 function confirmSubmit(index)
 {
     if (accstat[index] == 1) {

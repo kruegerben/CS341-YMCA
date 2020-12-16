@@ -1,3 +1,9 @@
+/*
+Author: Benjamin Krueger
+
+This file checks the where the website was directed from so that if it was a failed login attempt the user is notified.
+
+*/
 window.onload = window_onload
 
 function window_onload() {

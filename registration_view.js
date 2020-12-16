@@ -1,6 +1,12 @@
+/**
+ * Author: Benjamin Krueger
+ * 
+ * This program is called to show the staff all registration
+ */
 window.onload = window_onload
 var pnames = [];
 
+//This function is called to load in every registration on file
 function window_onload() {
     pnames = [];
     var url = window.location.href;
@@ -68,7 +74,11 @@ function window_onload() {
     }
 }
 
-
+/**
+ * This function moves the user to the details page for whatever program they clicked.
+ * 
+ * @param index - this is the program index so that the user is directed to the right program 
+ */
 function DetailsRequest(index) {
     location.href = '/program_view/' + pnames[index];
 }
